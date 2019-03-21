@@ -5,7 +5,7 @@ class MailjetNotifications {
         this.config = config;
     }
 
-    async notify(formattedResults) {
+    async notify(results, formattedResults) {
         const client = mailjet.connect(
             this.config.key,
             this.config.secret

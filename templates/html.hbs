@@ -1,6 +1,6 @@
 <html>
     <body>
-        {{#each servers as |results name|}}
+        {{#each data.servers as |results name|}}
             <h1>Server <span style="color: #4a70ee">{{ name }}</span></h1>
             {{#if results.commands}}
                 <h2>Commands:</h2>

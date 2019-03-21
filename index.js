@@ -5,11 +5,16 @@ const Server = require("./server");
 const formatter = require("./formatter");
 
 async function processServers(servers) {
-    const results = {};
+    const results = {errors: false, servers: {}};
     for (let name in servers) {
         const server = new Server(name, config, servers[name]);
         await server.connect();
-        results[name] = await server.backup();
+        const result = await server.backup();
+        results.servers[name] = result;
+        if (result.errors) {
+            results.errors = true;
+        }
+        
         server.close();
     }
     
@@ -18,7 +23,7 @@ async function processServers(servers) {
     for (let configuration of config.notifications) {
         const notificationClass = require("./notifications/" + configuration.type);
         const notifier = new notificationClass(configuration);
-        await notifier.notify(formattedResults);
+        await notifier.notify(results, formattedResults);
     }
 }
 

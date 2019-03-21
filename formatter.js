@@ -19,7 +19,7 @@ class Formatter {
     }
 
     async format(results) {
-        const params = {servers: results};
+        const params = {data: results};
         return {
             text: await this.formatText(params),
             html: await this.formatHtml(params)

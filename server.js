@@ -275,8 +275,6 @@ class Server {
             exclude
         };
 
-        console.log("Excluding ", exclude);
-
         if (!this.config.local) {
             options = {
                 ...options,
@@ -301,15 +299,24 @@ class Server {
     }
 
     async backup() {
-        const results = { commands: [], folders: [] };
+        const results = { errors: false, commands: [], folders: [] };
+        
         for (let command of this.commands) {
-            results.commands.push(await this.command(command));
+            const commandRes = await this.command(command);
+            if (!commandRes.status) {
+                results.errors = true;
+            }
+            results.commands.push(commandRes);
         }
 
         for (let folder of this.folders) {
-            results.folders.push(await this.synchronize(folder));
+            const syncRes = await this.synchronize(folder);
+            if (!syncRes.status) {
+                results.errors = true;
+            }
+            results.folders.push(syncRes);
         }
-        console.log(results);
+        
         return results;
     }
 }

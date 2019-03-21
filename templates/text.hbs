@@ -1,0 +1,24 @@
+
+{{#each servers as |results name|}}
+Server {{ name }}
+{{#if results.commands}}
+Commands:
+    {{#each results.commands as |result index|}}
+    {{#if result.command.label}}{{result.command.label}}{{else}}Commande {{ index }}{{/if}} : {{#if result.status}}OK{{else}}Error{{/if}}
+        {{#if result.error}}Error: {{result.error.message}}{{/if}}
+        {{#if result.deletedFiles}}
+        Files deleted:
+        {{#each result.deletedFiles}}
+        - {{this}}
+        {{/each}}
+        {{/if}}
+    {{/each}}
+{{/if}}
+{{#if results.folders}}
+Folders:
+    {{#each results.folders as |result index|}}
+    {{ result.folder.from }} : {{#if result.status}}OK{{else}}Error{{/if}}
+        {{#if result.error}}Error: {{result.error.message}}{{/if}}
+    {{/each}}
+{{/if}}
+{{/each}}

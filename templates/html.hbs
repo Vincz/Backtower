@@ -1,0 +1,46 @@
+<html>
+    <body>
+        {{#each servers as |results name|}}
+            <h1>Server <span style="color: #4a70ee">{{ name }}</span></h1>
+            {{#if results.commands}}
+                <h2>Commands:</h2>
+                {{#each results.commands as |result index|}}
+                    <h3>
+                        {{#if result.status}}
+                            <span style="color: #5bd36b">OK</span>
+                        {{else}}
+                            <span style="color: #ef2850">Error</span>
+                        {{/if}}
+                        -
+                        {{#if result.command.label}}{{result.command.label}}{{else}}Commande {{ index }}{{/if}}
+                    </h3>
+                    {{#if result.error}}<span style="color: #ef2850"></span>Error: {{result.error.message}}</span>{{/if}}
+                    {{#if result.deletedFiles}}
+                        <h4>Files deleted:</h4>
+                        <ul>
+                            {{#each result.deletedFiles}}
+                                <li>- <i>{{this}}</i></li>
+                            {{/each}}
+                        </ul>
+                    {{/if}}
+                {{/each}}
+            {{/if}}
+            {{#if results.folders}}
+                <h2>Folders:</h2>
+                {{#each results.folders as |result index|}}
+                    <h3>
+                        {{#if result.status}}
+                            <span style="color: #5bd36b">OK</span>
+                        {{else}}
+                            <span style="color: #ef2850">Error</span>
+                        {{/if}}
+                        -
+                        {{ result.synchronize.from }}
+                    </h3>
+                    {{#if result.error}}<span style="color: #ef2850">Error: {{result.error.message}}</span>{{/if}}
+                {{/each}}
+            {{/if}}
+            <hr />
+        {{/each}}
+    </body>
+</html>

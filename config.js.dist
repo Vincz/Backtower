@@ -1,0 +1,41 @@
+module.exports = {
+    errorsReporting: "<admin_email>",
+    notifications: [
+        {
+            type: "mailjet",
+            key: "<mailjet_key>",
+            secret: "<mailjet_secret>",
+            from: {
+                Email: "<mailjet_from_email>",
+                Name: "<mailjet_from_name>"
+            },
+            to: {
+                Email: "<mailjet_to_email>",
+                Name: "<mailjet_to_name>"
+            }
+        }
+    ],
+    debug: true,
+    backupDir: "<backup_folder_path>",
+    key: "<private_ssh_key_path>",
+    servers: {
+        server1: {
+            host: "myserver.net",
+            commands: [
+                {
+                    label: "PGSQL Backups DB mybase",
+                    exec: "cd / && sudo -u postgres pg_dump --format=custom mybase",
+                    outputs: [
+                        { condition: "daily", file: "databases/mybase/daily/%year%_%month%_%day%_mybase.fc.sql", keep: 7 },
+                        { condition: "weekly", file: "databases/mybase/weekly/%year%_%month%_%day%_mybase.fc.sql" },
+                        { condition: "monthly", file: "databases/mybase/monthly/%year%_%month%_%day%_mybase.fc.sql" }
+                    ]
+                }
+            ],
+            folders: [
+                { from: "/folder1", to: "files/folder1/" },
+                { from: "/folder2", to: "files/folder2/" }
+            ]
+        }
+    }
+};

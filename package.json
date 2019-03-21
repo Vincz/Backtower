@@ -1,0 +1,43 @@
+{
+    "name": "backtower",
+    "version": "0.0.1",
+    "description": "A tools to backup remote or local servers",
+    "main": "index",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/Vincz/Backtower.git"
+    },
+    "homepage": "https://github.com/Vincz/Backtower",
+    "bugs": "https://github.com/Vincz/Backtower/issues",
+    "dependencies": {
+        "handlebars": "^4.0.12",
+        "lodash": "^4.17.11",
+        "moment": "^2.24.0",
+        "node-mailjet": "^3.3.1",
+        "recursive-readdir-async": "^1.1.3",
+        "rsyncwrapper": "^3.0.1",
+        "simple-git": "^1.107.0",
+        "ssh2": "^0.8.2"
+    },
+    "keywords": [
+        "backup",
+        "rsync",
+        "git",
+        "servers",
+        "command line utility wrapper",
+        "async",
+        "syncing",
+        "copying",
+        "file manipulation",
+        "remote",
+        "ssh"
+    ],
+    "author": {
+        "name": "Vincent Fullstack",
+        "email": "vincent@fullstack.pro"
+    },
+    "license": "MIT",
+    "engines": {
+        "node": ">=8.1.3"
+    }
+}
